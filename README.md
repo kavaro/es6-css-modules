@@ -1,1 +1,1 @@
-es6-css-modules boilerplate
+# es6-css-modules
