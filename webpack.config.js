@@ -1,27 +1,14 @@
-const production = !!process.env.NODE_ENV;
+const NODE_ENV = process.env.NODE_ENV;
+const BUILD_TARGET = process.env.BUILD_TARGET;
 
-const loaders = require('./webpack/loaders')(production);
-const plugins = require('./webpack/plugins')(production);
-
-const config = {
-    entry: ['./src/index.js'],
-    output: {
-        path: './public',
-        filename: 'index.js'
-    },
-    resolve: {
-        extensions: ['', '.js', '.jsx', '.json'],
-        packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
-    },
-    module: {
-        loaders: loaders
-    },
-    plugins: plugins
+const options = {
+    NODE_ENV: NODE_ENV,
+    BUILD_TARGET: BUILD_TARGET,
+    production: NODE_ENV === 'production'
 };
 
-if (!production) {
-    config.debug = true;
-    config.devtool = 'cheap-module-eval-source-map';
-}
+const config = require('./webpack/config')(options);
+config.module.loaders = require('./webpack/loaders')(options);
+config.plugins = require('./webpack/plugins')(options);
 
 module.exports = config;

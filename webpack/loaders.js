@@ -3,9 +3,18 @@
  */
 'use strict';
 
+// require image
+//  import img from 'file?name=imgs/[hash:6].[ext]!img!./img.jpg'
+
+// require responsive image
+//  import img from 'responsive?name=imgs/[hash:6]-[width].[ext],quality=50,sizes[]=100,sizes[]=400,sizes[]=800,sizes[]=1600!./img.jpg'
+
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = function (production) {
+module.exports = function (options) {
+    const production = options.production;
+
     const jsLoaders =
         [
             {
@@ -31,6 +40,7 @@ module.exports = function (production) {
                     'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
                 )
             }
+
         ]
         :
         [
@@ -58,6 +68,8 @@ module.exports = function (production) {
             }
         ];
 
-    return jsLoaders.concat(cssLoaders).concat(jsonLoaders);
+    return jsLoaders
+        .concat(cssLoaders)
+        .concat(jsonLoaders);
 };
 
