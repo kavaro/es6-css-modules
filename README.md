@@ -1,6 +1,6 @@
 # es6-css-modules
 
-Simple boilerplate
+Simple boilerplate (work in progress, use at own risk)
 
 # Features
 
